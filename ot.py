@@ -4,12 +4,13 @@ A utility that brings music tracks from Youtube playlist, straight to your iPhon
 """
 
 import youtube_dl
+from config import Config
 
 
 class Program(object):
 
     def main(self):
-        self.download('https://www.youtube.com/playlist?list=PLJDaThmgB7hhK3ASynwajyuQAj6XUUGXZ')
+        self.download(Config.playlist_url)
 
     @staticmethod
     def ydl_hook(d):
@@ -20,7 +21,7 @@ class Program(object):
         postprocessors = [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'm4a',
-            'preferredquality': 0
+            'preferredquality': '0'
         }]
 
         ydl_opts = {
@@ -31,6 +32,8 @@ class Program(object):
             'postprocessor_args': ['-strict', '-2'],
             'autonumber_size': 4,
             'postprocessors': postprocessors,
+            'format': u'bestaudio/best',
+            'keepvideo': False,
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([playlist])
