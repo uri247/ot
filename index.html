@@ -74,20 +74,63 @@ Linux distributions.</p>
 <h5>
 <a id="python-libraries" class="anchor" href="#python-libraries" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python libraries</h5>
 
-<p>$ pip install youtube-dl
-$ pip install mutagen</p>
+<div class="highlight highlight-source-shell"><pre>$ pip install youtube-dl
+$ pip install mutagen</pre></div>
 
 <h5>
 <a id="libav" class="anchor" href="#libav" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>libav</h5>
 
-<p>Go to <a href="http://libav.org/downloads">http://libav.org/downloads</a>, and install the package suitable for
-your machine</p>
+<p>libav is an open source (GPL) Audio Video library. It is used to
+transcode the YouTube songs to m4a or mp3 format.</p>
+
+<h6>
+<a id="linux" class="anchor" href="#linux" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Linux</h6>
+
+<pre><code>$ sudo apt-get install libav
+</code></pre>
+
+<h6>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Windows</h6>
+
+<p>Go to <a href="http://builds.libav.org/windows/">http://builds.libav.org/windows/</a>, and select the release-gpl (more
+features, license is more restricted, if you were a developer). Select
+the most recent build (currently, 11.3), for win32 or win64 that
+appropriate for your machine. Extract the 7z file, and make sure the bin
+folder is in the search path</p>
 
 <h2>
 <a id="running" class="anchor" href="#running" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running</h2>
 
-<p>Once OT is installed, from the command line run <code>ot.py</code> to execute
-Original Track. A new album will be created, at the current directory</p>
+<p>Invoking OT has 3 steps:</p>
+
+<ol>
+<li>Download all the songs and creating an Excel spreadsheet with <code>ot.py</code>
+script</li>
+<li>Manually review <em>album.xls</em> with Excel, fix song artist or title if
+necessary, and set order</li>
+<li>Fix the songs metadata, and set order with <code>otfix.py</code>
+</li>
+</ol>
+
+<h4>
+<a id="step-1-otpy" class="anchor" href="#step-1-otpy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>step 1: ot.py</h4>
+
+<p>Edit <code>config.py</code> and set the URL of the playlist
+Then, simply run <code>ot.py</code></p>
+
+<h4>
+<a id="step-2-albumxls" class="anchor" href="#step-2-albumxls" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>step 2: Album.xls</h4>
+
+<p>Previous step will create a spreadsheet named Album.xls with a list of
+all the songs. It will also fill what it believes to be the song's name
+and artist, based on the YouTube title.
+To set priority, put '<strong>' or '</strong>*' in the priority column
+To delete a song from the album, put 'del' in the priority column</p>
+
+<h4>
+<a id="step-3-otfixpy" class="anchor" href="#step-3-otfixpy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>step 3: otfix.py</h4>
+
+<p>Once <em>Album.xls</em> was reviewed, simply run otfix.py</p>
 
 <h2>
 <a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Copyright</h2>
