@@ -28,17 +28,49 @@ Note: Some version of Python comes pre-installed on Mac OS and on most
 Linux distributions.
 
 ##### Python libraries
+```shell
 $ pip install youtube-dl
 $ pip install mutagen
+```
 
 ##### libav
-Go to http://libav.org/downloads, and install the package suitable for
-your machine
+libav is an open source (GPL) Audio Video library. It is used to
+transcode the YouTube songs to m4a or mp3 format.
+
+###### Linux
+    $ sudo apt-get install libav
+    
+###### Windows
+
+Go to http://builds.libav.org/windows/, and select the release-gpl (more
+features, license is more restricted, if you were a developer). Select
+the most recent build (currently, 11.3), for win32 or win64 that
+appropriate for your machine. Extract the 7z file, and make sure the bin
+folder is in the search path
 
 ## Running
 
-Once OT is installed, from the command line run `ot.py` to execute
-Original Track. A new album will be created, at the current directory
+Invoking OT has 3 steps:
+
+1. Download all the songs and creating an Excel spreadsheet with `ot.py`
+script
+2. Manually review *album.xls* with Excel, fix song artist or title if
+necessary, and set order
+3. Fix the songs metadata, and set order with `otfix.py`
+
+#### step 1: ot.py
+Edit `config.py` and set the URL of the playlist
+Then, simply run `ot.py`
+
+#### step 2: Album.xls
+Previous step will create a spreadsheet named Album.xls with a list of
+all the songs. It will also fill what it believes to be the song's name
+and artist, based on the YouTube title.
+To set priority, put '**' or '***' in the priority column
+To delete a song from the album, put 'del' in the priority column
+
+#### step 3: otfix.py
+Once *Album.xls* was reviewed, simply run otfix.py
 
 ## Copyright
 
