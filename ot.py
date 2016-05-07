@@ -3,11 +3,15 @@
 A utility that brings music tracks from Youtube playlist, straight to your iPhone player
 """
 
+from pprint import PrettyPrinter
 import youtube_dl
 from config import Config
 
 
 class Program(object):
+
+    def __init__(self):
+        self.pp = PrettyPrinter(indent=4, width=130, depth=3)
 
     def main(self):
         self.download(Config.playlist_url)
@@ -16,7 +20,7 @@ class Program(object):
     def ydl_hook(d):
         print d['status']
 
-    def download(self, playlist):
+    def download(self, playlist_url):
 
         postprocessors = [{
             'key': 'FFmpegExtractAudio',
@@ -36,7 +40,9 @@ class Program(object):
             'keepvideo': False,
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([playlist])
+            # res = ydl.extract_info(playlist_url, download=False)
+            # self.pp.pprint(res)
+            ydl.download([playlist_url, ])
 
 
 if __name__ == '__main__':
