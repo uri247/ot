@@ -40,9 +40,13 @@ class Program(object):
             'keepvideo': False,
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            # res = ydl.extract_info(playlist_url, download=False)
-            # self.pp.pprint(res)
-            ydl.download([playlist_url, ])
+            res = ydl.extract_info(playlist_url, download=False, process=False)
+            self.pp.pprint(res)
+            res = ydl.process_ie_result(res)
+            self.pp.pprint(res)
+            pass
+
+            # ydl.download([playlist_url, ])
 
 
 if __name__ == '__main__':
