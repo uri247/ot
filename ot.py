@@ -16,9 +16,24 @@ class Program(object):
     def main(self):
         self.download(Config.playlist_url)
 
-    @staticmethod
-    def ydl_hook(d):
-        print d['status']
+    def ydl_hook(self, d):
+        status = d['status']
+        if status in ('downloading', 'error', 'finished'):
+            print d['status']
+        elif status == 'extract_info':
+            ie_result = d['ie_result']
+            self.ie_hook(ie_result)
+
+    def ie_hook(self, ie_result):
+        result_type = ie_result.get('_type', u'video')
+        print result_type
+        if result_type == 'playlist':
+            entries = list(ie_result['entries'])
+            ie_result['entries'] = entries
+            for entry in entries:
+                print entry
+        elif result_type == 'video':
+            self.pp.pprint(ie_result)
 
     def download(self, playlist_url):
 
@@ -39,11 +54,9 @@ class Program(object):
             'format': u'bestaudio/best',
             'keepvideo': False,
         }
+
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            res = ydl.extract_info(playlist_url, download=False, process=False)
-            self.pp.pprint(res)
-            res = ydl.process_ie_result(res)
-            self.pp.pprint(res)
+            res = ydl.extract_info(playlist_url, download=False, process=True)
             pass
 
             # ydl.download([playlist_url, ])
